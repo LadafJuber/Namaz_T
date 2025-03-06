@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        // Define environment variables
         NODE_VERSION = '16' // Specify the Node.js version
         CI = 'true' // Set CI environment variable
+        HOME = "${env.WORKSPACE}" // Set HOME to the Jenkins workspace directory
     }
 
     stages {
@@ -68,4 +68,4 @@ pipeline {
             echo 'Pipeline completed.'
         }
     }
-}
+} 
