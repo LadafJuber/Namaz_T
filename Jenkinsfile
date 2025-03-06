@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = '16' // Specify the Node.js version
         CI = 'true' // Set CI environment variable
-        HOME = "${env.WORKSPACE}" // Set HOME to the Jenkins workspace directory
+    }
+
+    tools {
+        nodejs 'Node 16' // Use the Node.js installation configured in Jenkins
     }
 
     stages {
@@ -12,19 +14,6 @@ pipeline {
             steps {
                 // Checkout the code from the repository
                 checkout scm
-            }
-        }
-
-        stage('Setup Node.js') {
-            steps {
-                // Install and use the specified Node.js version
-                sh """
-                    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-                    export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"
-                    nvm install ${NODE_VERSION}
-                    nvm use ${NODE_VERSION}
-                """
             }
         }
 
@@ -68,4 +57,4 @@ pipeline {
             echo 'Pipeline completed.'
         }
     }
-} 
+}
