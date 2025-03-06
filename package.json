@@ -30,3 +30,10 @@
     "vite": "^6.1.0"
   }
 }
+{
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src",
+    "build": "react-scripts build"
+  }
+}   
