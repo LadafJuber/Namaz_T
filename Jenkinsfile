@@ -1,36 +1,29 @@
 pipeline {
     agent any
-    tools {
-        nodejs 'NodeJS 18.x'
-    }
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        stage('Install Dependencies') {
+        stage('Build') {
             steps {
                 sh 'npm install'
+                sh 'npm run build'
             }
         }
-        stage('Run Tests') {
+        stage('Test') {
             steps {
                 sh 'npm test'
-            }
-        }
-        stage('Build Project') {
-            steps {
-                sh 'npm run build'
             }
         }
     }
     post {
         success {
-            echo 'Build and tests completed successfully!'
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'Build or tests failed!'
+            echo 'Pipeline failed!'
         }
     }
 }
